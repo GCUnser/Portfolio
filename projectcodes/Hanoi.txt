@@ -1,0 +1,101 @@
+var numDisks = 3;
+var rod1 = [];
+var rod2 = [];
+var rod3 = [];
+
+function setup() {
+  rectMode(CORNERS);
+  createCanvas(windowWidth, 360);
+  for (var i=0;i<numDisks;i++){
+    rod1[i]=(new disk(360*(i/4), (height / 3) - (i * (height / 10))));
+  }
+}
+
+function draw() {
+  background(230);
+  fill(255);
+  triangle(0,height,width/3,height,width/6,height/-3);
+  towers();
+  //rectMode(CENTER);
+  /*fill(255,0,0);
+  rect(width/6,height-(height/20),width/3,height/10);
+  rect(width/6,height-(3*height/20),width/1.26,height/10);
+  rect(width/6,height-(5*height/20),width/3.65,height/10);*/
+  //drawDisks();
+  //move(3, rod1, rod3, rod2);
+}
+
+function towers() {
+  rectMode(CORNERS);
+  fill(65, 25, 0);
+  rect(width / 6.545454, 0, width / 5.548461, height);
+  rect(width / 2.057142, 0, width / 1.945945, height);
+  rect(width / 1.220338, 0, width / 1.180327, height);
+}
+
+function drawDisks() {
+  rectMode(CENTER);
+  colorMode(HSB);
+  for (var j = 0; j < rod1.length; j++) {
+    fill(rod1[j].hue,100,100);
+    rect(
+      width / 6,
+      width - (width / 6 + j * (width / 3)),
+      rod1[j].width,
+      width / numDisks
+    );
+  }
+  for (j = 0; j < rod2.length; j++) {
+    fill(rod2[j].hue,100,100);
+    rect(
+      width / 2,
+      height - (height / 6 + j * (height / 3)),
+      rod2[j].width,
+      width / numDisks
+    );
+  }
+  for (j = 0; j < rod3.length; j++) {
+    fill(rod3[j].hue,100,100);
+    rect(
+      width / 1.2,
+      height - (height / 6 + j * (height / 3)),
+      rod3[j].width,
+      width / numDisks
+    );
+  }
+}
+
+class disk {
+  constructor(hue, width) {
+    this.hue = hue;
+    this.width=width;
+  }
+}
+
+function move(numDisks, from, to, spare){ // Move from rod 1 to 3, 2 as spare
+  if (numDisks>0){
+    move(numDisks-1,from,spare,to);
+    moveDisc(from,to);
+    move(numDisks-1,spare,to,from);
+  }
+}
+
+function moveDisc(from,to){
+  to.push(from.pop());
+  drawDisks();
+}
+
+/*
+FUNCTION MoveTower(disk, source, dest, spare):
+IF disk == 0, THEN:
+    move disk from source to dest
+ELSE:
+    MoveTower(disk - 1, source, spare, dest)   // Step 1 above
+    move disk from source to dest              // Step 2 above
+    MoveTower(disk - 1, spare, dest, source)   // Step 3 above
+END IF
+
+1, 3, 2
+1, 2, 3
+1, 3, 2
+*/

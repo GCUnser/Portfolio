@@ -1,0 +1,246 @@
+let shadowLength;
+let totalMin;
+
+function setup() {
+  createCanvas(720, 720);
+  angleMode(DEGREES);
+  frameRate(60);
+
+}
+
+function draw() {
+  background(232, 208, 170);
+ totalMin=hour()*60+minute();
+  totalSeconds=hour()*3600+minute()*60+second();
+  shadowLength=-17466 + 1.19*(totalSeconds) + -2.72E-05*(Math.pow(totalSeconds),2) + 2.1E-10*(Math.pow(totalSeconds),3);
+  dial();
+ 
+  
+}
+
+function dial() {
+  stroke(117, 131, 140);
+  fill(49, 64, 71);
+  circle(width / 2, height / 2, height);
+  noFill();
+  strokeWeight(5);
+  circle(width / 2, height / 2, height);
+
+  numbers();
+  lines();
+  shadow();
+  gnomon();
+  dayNight();
+}
+function numbers() {
+  
+  
+   push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-90);
+  text("VI", 0,-height/2.85);
+  pop();
+  
+   push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-75);
+  text("VII", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-60);
+  text("VIII", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-45);
+  text("IX", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-30);
+  text("X", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-15);
+  text("XI", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-60);
+  text("VIII", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-45);
+  text("IX", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-30);
+  text("X", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(-15);
+  text("XI", 0,-height/2.85);
+  pop();
+  
+  push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(0);
+  text("XII", 0,-height/2.85);
+  pop();
+  
+   push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(15);
+  text("I", 0,-height/2.85);
+  pop();
+  
+   push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(30);
+  text("II", 0,-height/2.85);
+  pop();
+  
+   push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(45);
+  text("III", 0,-height/2.85);
+  pop();
+  
+   push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(60);
+  text("IV", 0,-height/2.85);
+  pop();
+  
+   push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(75);
+  text("V", 0,-height/2.85);
+  pop();
+  
+   push();
+  fill(117, 131, 140);
+  textAlign(CENTER);
+  noStroke();
+  textSize(30)
+  translate(width / 2, height / 2);
+  rotate(90);
+  text("VI", 0,-height/2.85);
+  pop();
+
+}
+
+function lines() {
+  
+  for (let i=-90; i<105; i+=15){
+  push();
+  stroke(117, 131, 140);
+  translate(width/2, height/2);
+  rotate(225+i);
+  line(width/3.5,height/3.5,width/2.85,height/2.85);
+  pop();
+  }
+ 
+}
+
+function gnomon() {
+  push();
+  strokeWeight(10);
+  stroke(244, 208, 82);
+  translate(width / 2, height / 2);
+  rotate(225);
+  line(0, 0, width/2.85,height/2.85);
+  pop();
+}
+
+function dayNight(){
+  noStroke();
+  fill(0,0,0,-cos(0.25*(totalMin-720))*180+200);
+  rect(0,0,width,height);
+}
+
+function shadow(){
+  push();
+  noStroke();
+  translate(width/2,height/2);
+  fill(0,0,0,180);
+  triangle(0,0,0,-height/2,360*tan((totalMin-720)/4),-height/2);
+  pop();
+}

@@ -1,0 +1,359 @@
+var list1,
+  set1,
+  set2,
+  set3,
+  stack1,
+  stack2,
+  stack3 = [];
+var move = false;
+var pos = 0;
+var path = 0;
+var listButton, setButton, stackButton, music;
+
+function setup() {
+  createCanvas(windowWidth, windowWidth * 0.5625);
+}
+
+function preload() {
+  MrJava = loadImage("images/MrJava(1).png");
+  SetChan = loadImage("images/Set_chan.png");
+  SetBlush = loadImage("images/set_blush.png");
+  SetSweat = loadImage("images/set_sweat.png");
+  SetAngry = loadImage("images/set_angry.png");
+  SetMarry = loadImage("images/setmarry.png");
+  TimSort = loadImage("images/TimSort(1).png");
+  ListChan = loadImage("images/list_chan.png");
+  ListBlush = loadImage("images/list_blush.png");
+  ListSweat = loadImage("images/list_sweat.png");
+  ListAngry = loadImage("images/list_angry.png");
+  ListMarry = loadImage("images/listmarry.png");
+  StackChan = loadImage("images/stack_chan.png");
+  StackBlush = loadImage("images/stack_blush.png");
+  StackSweat = loadImage("images/stack_sweat.png");
+  StackAngry = loadImage("images/stack_angry.png");
+  StackMarry = loadImage("images/stackmarry.png");
+  Hallway = loadImage("images/Hallway.png");
+  Class = loadImage("images/classroom.png");
+  Title = loadImage("images/title.png");
+  list1 = loadStrings("dialogue/listCall1.txt");
+  set1 = loadStrings("dialogue/setCall1.txt");
+  stack1 = loadStrings("dialogue/stackCall1.txt");
+  Bogo = loadImage("images/bogosort.png");
+  CES = loadImage("images/CES.png");
+}
+
+function draw() {
+  background(200);
+  if (path == 0) {
+    image(Title, 0, 0, width, height);
+    if (!listButton) {
+      listButton = createButton("list-chan");
+    }
+    listButton.position(width / 30, height / 2);
+    listButton.mousePressed(listStart);
+    if (!setButton) {
+      setButton = createButton("set-chan");
+    }
+    setButton.position(width / 30, height / 2 + height / 6);
+    setButton.mousePressed(setStart);
+    if (!stackButton) {
+      stackButton = createButton("stack-chan");
+    }
+    stackButton.position(width / 30, height / 2 + height / 3);
+    stackButton.mousePressed(stackStart);
+  }
+  if (path == 1) {
+    setButton.hide();
+    list();
+  }
+  if (path == 2) {
+    sett();
+  }
+  if (path == 3) {
+    stack();
+  }
+}
+
+function mouseClicked() {
+  move = true;
+}
+function listStart() {
+  path = 1;
+}
+function setStart() {
+  path = 2;
+}
+function stackStart() {
+  path = 3;
+}
+
+function list() {
+  listButton.hide();
+  setButton.hide();
+  stackButton.hide();
+  
+  
+  let active1;
+  let back1;
+  if (pos >= 17 && pos <= 18) {
+    back1 = Class;
+  } else if (pos == list1.length - 2) {
+    back1 = ListMarry;
+  } else {
+    back1 = Hallway;
+  }
+  image(back1, 0, 0, width, height);
+
+  if (pos == 3 || pos == 11 || pos == 34) {
+    active1 = ListSweat;
+
+    image(active1, width / 3, 0, width / 3, height);
+  } 
+  else if (pos == 6 || pos == 28 || (37 <= pos && pos <= 39)) {
+    active1 = ListBlush;
+
+    image(active1, width / 3, 0, width / 3, height);
+  } 
+  else if (17 <= pos && pos <= 18) {
+    active1 = MrJava;
+    image(active1, width / 5, 0, width * 0.6, height);
+  } 
+  else if (pos == 2 || pos == 16 || pos == 19 || (23 <= pos && pos <= 27)) {
+    active1 = ListAngry;
+
+    image(active1, width / 3, 0, width / 3, height);
+  } 
+  else if (pos != list1.length - 2 && pos != 0 && pos!=1) {
+    active1 = ListChan;
+    image(active1, width / 3, 0, width / 3, height);
+  }
+  
+
+  textBox();
+  noStroke();
+  textAlign(CENTER, TOP);
+  fill(251, 67, 110);
+  if (pos < list1.length) {
+    textSize(width / 24);
+    strokeWeight(2);
+    text(
+      list1[pos],
+      width / 36 + 10,
+      height - height / 2.3333 + 10,
+      width - width / 18 - 10,
+      height / 2.5 - 10
+    );
+    if (move) {
+      pos++;
+      move = false;
+    }
+    if (pos == 13) {
+      dayTransition(2);
+    }
+    if (pos == 26) {
+      dayTransition(3);
+    }
+    if (pos == list1.length - 1) {
+      listButton.show();
+      setButton.show();
+      stackButton.show();
+      pos = 0;
+      path = 0;
+    }
+  }
+}
+
+function sett() {
+  listButton.hide();
+  setButton.hide();
+  stackButton.hide();
+  
+  let active2;
+  let back2;
+  if (pos == set1.length - 2) {
+    back2 = SetMarry;
+  } else {
+    back2 = Hallway;
+  }
+  image(back2, 0, 0, width, height);
+
+  if (pos == 2 || pos == 15) {
+    active2 = SetSweat;
+
+    image(active2, width / 3, 0, width / 3, height);
+  } 
+  else if (pos == 10 || pos == 13 || (25 <= pos && pos < set1.length-2)) {
+    active2 = SetBlush;
+
+    image(active2, width / 3, 0, width / 3, height);
+  } 
+  else if (pos == 19) {
+    active2 = SetAngry;
+
+    image(active2, width / 3, 0, width / 3, height);
+  } 
+  else if (pos != set1.length - 2 && pos != 0 && pos!=1) {
+    active2 = SetChan;
+    image(active2, width / 3, 0, width / 3, height);
+  }
+  
+  
+  
+  textBox();
+  noStroke();
+  textAlign(CENTER, TOP);
+  fill(251, 67, 110);
+  if (pos < list1.length) {
+    textSize(width / 24);
+    strokeWeight(2);
+    text(
+      set1[pos],
+      width / 36 + 10,
+      height - height / 2.3333 + 10,
+      width - width / 18 - 10,
+      height / 2.5 - 10
+    );
+    if (move) {
+      pos++;
+      move = false;
+    }
+    if (pos == 12) {
+      dayTransition(2);
+    }
+    if (pos == 24) {
+      dayTransition(3);
+    }
+    if (pos == set1.length - 1) {
+      listButton.show();
+      setButton.show();
+      stackButton.show();
+      pos = 0;
+      path = 0;
+    }
+  }
+}
+
+function stack() {
+  listButton.hide();
+  setButton.hide();
+  stackButton.hide();
+  
+  let active3;
+  let back3;
+  if (pos == stack1.length - 2) {
+    back3 = StackMarry;
+  } 
+  
+  else if(pos>=15 && pos<=23){
+    back3= Class;
+  }
+  
+  else if (pos>=24 && pos<stack1.length-2){
+    back3=CES;
+  }
+  
+  else {
+    back3 = Hallway;
+  }
+  image(back3, 0, 0, width, height);
+
+  
+  if (pos == 10 || pos == 13 || pos==37 || pos == 38 || pos==39) {
+    active3 = StackBlush;
+    image(active3, width / 3, 0, width / 3, height);
+  } 
+  
+  else if (pos == 20 || pos == 2 || pos==27) {
+    active3 = StackAngry;
+    image(active3, width / 3, 0, width / 3, height);
+  } 
+  
+  else if (pos == 28 || pos == 29) {
+    active3 = Bogo;
+    image(active3, width / 3, 0, width / 3, height);
+  } 
+  
+  else if (pos == 31 || pos == 32 || pos==35) {
+    active3 = TimSort;
+    image(active3, width / 5, 0, width * 0.6, height);
+  } 
+  
+  else if (pos>=15 && pos<=17){
+    active3=MrJava;
+    image(active3, width / 5, 0, width * 0.6, height);
+  }
+  
+  else if (pos != stack1.length - 2 && pos != 0 && pos!=1) {
+    active3 = StackChan;
+    image(active3, width / 3, 0, width / 3, height);
+  }
+  
+  
+  textBox();
+  noStroke();
+  textAlign(CENTER, TOP);
+  fill(251, 67, 110);
+  if (pos < list1.length) {
+    textSize(width / 24);
+    strokeWeight(2);
+    text(
+      stack1[pos],
+      width / 36 + 10,
+      height - height / 2.3333 + 10,
+      width - width / 18 - 10,
+      height / 2.5 - 10
+    );
+    if (move) {
+      pos++;
+      move = false;
+    }
+    if (pos == 14) {
+      fill(0);
+      rect(0, 0, width, height);
+      stroke(255);
+      fill(255);
+      textSize(130);
+      textAlign(CENTER);
+      text("STILL \nDAY 1", width / 2, height / 4);
+    }
+    if (pos == 24) {
+      fill(0);
+      rect(0, 0, width, height);
+      stroke(255);
+      fill(255);
+      textSize(130);
+      textAlign(CENTER);
+      text("AT CES", width / 2, height / 3);
+    }
+    if (pos == stack1.length - 1) {
+      listButton.show();
+      setButton.show();
+      stackButton.show();
+      pos = 0;
+      path = 0;
+    }
+  }
+}
+
+function dayTransition(theDay) {
+  fill(0);
+  rect(0, 0, width, height);
+  stroke(255);
+  fill(255);
+  textSize(130);
+  textAlign(CENTER);
+  text("DAY " + theDay, width / 2, height / 3);
+}
+
+function textBox() {
+  fill(254, 222, 230);
+  stroke(251, 67, 110);
+  strokeWeight(5);
+  rect(
+    width / 36,
+    height - height / 2.3333,
+    width - width / 18,
+    height / 2.5,
+    20
+  );
+}
